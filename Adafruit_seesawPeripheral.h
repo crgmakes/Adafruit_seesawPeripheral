@@ -192,6 +192,18 @@ void Adafruit_seesawPeripheral_changedGPIO(void);
 
 /****************************************************** global state */
 
+volatile uint8_t gChannelCount = 0;
+uint8_t getChannelCount()
+{
+  return gChannelCount;
+}
+
+void setChannelCount(uint8_t c)
+{
+  gChannelCount = c;
+}
+
+
 #if CONFIG_FHT && defined(MEGATINYCORE)
 volatile uint8_t i2c_buffer[3]; // Minimal I2C buffer w/FHT because RAM
 volatile uint8_t fht_counter;   // For filling FHT input buffer
