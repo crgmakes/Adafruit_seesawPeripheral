@@ -25,18 +25,24 @@ void requestEvent(void)
 
   if (base_cmd == SEESAW_STATUS_BASE)
   {
-    switch (module_cmd)
-    {
-    case SEESAW_STATUS_HW_ID:
+    if (module_cmd == SEESAW_STATUS_HW_ID) {
       Wire.write(SEESAW_HW_ID); // instant reply
-      break;
-    case SEESAW_STATUS_VERSION:
-      Adafruit_seesawPeripheral_write32(CONFIG_VERSION | DATE_CODE); // instant reply
-      break;
-    case SEESAW_STATUS_COUNT:
-      Wire.write(gChannelCount);
-      break;
     }
+    if (module_cmd == SEESAW_STATUS_VERSION) {
+      Adafruit_seesawPeripheral_write32(CONFIG_VERSION | DATE_CODE); // instant reply
+    }    
+    // switch (module_cmd)
+    // {
+    // case SEESAW_STATUS_HW_ID:
+    //   Wire.write(SEESAW_HW_ID); // instant reply
+    //   break;
+    // case SEESAW_STATUS_VERSION:
+    //   Adafruit_seesawPeripheral_write32(CONFIG_VERSION | DATE_CODE); // instant reply
+    //   break;
+    // case SEESAW_STATUS_COUNT:
+    //   Wire.write(gChannelCount);
+    //   break;
+    // }
   }
   else if (base_cmd == SEESAW_GPIO_BASE)
   {
