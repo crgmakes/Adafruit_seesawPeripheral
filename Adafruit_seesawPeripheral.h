@@ -38,7 +38,7 @@ void foo(void);
 #define SEESAW_DEBUG(...)
 #define SEESAW_DEBUGLN(...)
 #else
-#error("CONFIG_UART_DEBUG must be 0 or 1")
+#error ("CONFIG_UART_DEBUG must be 0 or 1")
 #endif
 
 /*************** Interrupt Pin */
@@ -68,7 +68,7 @@ void foo(void);
 // Arduino Library Manager and must be separately installed.
 #if CONFIG_FHT && defined(MEGATINYCORE)
 #if CONFIG_ADC
-#error("Cannot enable both CONFIG_ADC and CONFIG_FHT")
+#error ("Cannot enable both CONFIG_ADC and CONFIG_FHT")
 #endif
 // Currently set up for size 128 FHT (64 spectrum outputs). 256 (128 out)
 // is an option IF a larger chip (1K RAM or better) is used; won't fit on
@@ -82,31 +82,31 @@ void foo(void);
 
 uint16_t DATE_CODE = 0;
 
-#define CONFIG_VERSION                                                         \
-  (uint32_t)(((uint32_t)PRODUCT_CODE << 16) |                                  \
+#define CONFIG_VERSION                        \
+  (uint32_t)(((uint32_t)PRODUCT_CODE << 16) | \
              ((uint16_t)DATE_CODE & 0x0000FFFF))
 
 /********************** Hardcoded chip configration */
 
-#if defined(ARDUINO_AVR_ATtiny817) || defined(ARDUINO_AVR_ATtiny807) ||        \
-    defined(ARDUINO_AVR_ATtiny1617) || defined(ARDUINO_AVR_ATtiny1607) ||      \
-    defined(ARDUINO_AVR_ATtiny427) || defined(ARDUINO_AVR_ATtiny827) ||      \
+#if defined(ARDUINO_AVR_ATtiny817) || defined(ARDUINO_AVR_ATtiny807) ||   \
+    defined(ARDUINO_AVR_ATtiny1617) || defined(ARDUINO_AVR_ATtiny1607) || \
+    defined(ARDUINO_AVR_ATtiny427) || defined(ARDUINO_AVR_ATtiny827) ||   \
     defined(ARDUINO_AVR_ATtiny3217)
 #define UART_DEBUG_RXD 8
 #define UART_DEBUG_TXD 9
 #endif
-#if defined(ARDUINO_AVR_ATtiny816) || defined(ARDUINO_AVR_ATtiny806) ||        \
-    defined(ARDUINO_AVR_ATtiny1616) || defined(ARDUINO_AVR_ATtiny1606) ||      \
+#if defined(ARDUINO_AVR_ATtiny816) || defined(ARDUINO_AVR_ATtiny806) ||   \
+    defined(ARDUINO_AVR_ATtiny1616) || defined(ARDUINO_AVR_ATtiny1606) || \
     defined(ARDUINO_AVR_ATtiny3216)
 #define UART_DEBUG_RXD 6
 #define UART_DEBUG_TXD 7
 #endif
 
 #ifdef CONFIG_ADDR_INVERTED
-  #undef CONFIG_ADDR_INVERTED
-  #define CONFIG_ADDR_INVERTED 1
+#undef CONFIG_ADDR_INVERTED
+#define CONFIG_ADDR_INVERTED 1
 #else
-  #define CONFIG_ADDR_INVERTED 0
+#define CONFIG_ADDR_INVERTED 0
 #endif
 
 #ifdef CONFIG_ADDR_0_PIN
@@ -128,55 +128,55 @@ uint16_t DATE_CODE = 0;
 #define CONFIG_ADDR_2_PIN 0
 #endif
 #ifdef CONFIG_ADDR_3_PIN
-  #define CONFIG_ADDR_3 1
+#define CONFIG_ADDR_3 1
 #else
-  #define CONFIG_ADDR_3 0
-  #define CONFIG_ADDR_3_PIN 0
+#define CONFIG_ADDR_3 0
+#define CONFIG_ADDR_3_PIN 0
 #endif
 
 /********************** Available/taken GPIO configuration macros */
 
-#if defined(ARDUINO_AVR_ATtiny817) || defined(ARDUINO_AVR_ATtiny807) ||        \
-    defined(ARDUINO_AVR_ATtiny1617) || defined(ARDUINO_AVR_ATtiny1607) ||      \
-    defined(ARDUINO_AVR_ATtiny427) || defined(ARDUINO_AVR_ATtiny827) ||      \
+#if defined(ARDUINO_AVR_ATtiny817) || defined(ARDUINO_AVR_ATtiny807) ||   \
+    defined(ARDUINO_AVR_ATtiny1617) || defined(ARDUINO_AVR_ATtiny1607) || \
+    defined(ARDUINO_AVR_ATtiny427) || defined(ARDUINO_AVR_ATtiny827) ||   \
     defined(ARDUINO_AVR_ATtiny3217)
-#define ALL_GPIO                                                               \
-  0x1FFFFFUL // this is chip dependant, for 817 we have 21 GPIO avail (0~20 inc)
+#define ALL_GPIO \
+  0x1FFFFFUL                             // this is chip dependant, for 817 we have 21 GPIO avail (0~20 inc)
 #define ALL_ADC 0b1111000000110011001111 // pins that have ADC capability
 #ifdef CONFIG_PWM_16BIT
-#define ALL_PWM ((1UL << 6) | (1UL << 7) | (1UL << 8))  // alternate TCA0 WOx
+#define ALL_PWM ((1UL << 6) | (1UL << 7) | (1UL << 8)) // alternate TCA0 WOx
 #else
-#define ALL_PWM                                                                \
-  ((1UL << 0) | (1UL << 1) | (1UL << 9) | (1UL << 10) | (1UL << 11) |          \
+#define ALL_PWM                                                       \
+  ((1UL << 0) | (1UL << 1) | (1UL << 9) | (1UL << 10) | (1UL << 11) | \
    (1UL << 12) | (1UL << 13) | (1UL << 10))
 #endif
 #define PWM_WO_OFFSET (6)
 #endif
 
-#if defined(ARDUINO_AVR_ATtiny816) || defined(ARDUINO_AVR_ATtiny806) ||        \
-    defined(ARDUINO_AVR_ATtiny1616) || defined(ARDUINO_AVR_ATtiny1606) ||      \
+#if defined(ARDUINO_AVR_ATtiny816) || defined(ARDUINO_AVR_ATtiny806) ||   \
+    defined(ARDUINO_AVR_ATtiny1616) || defined(ARDUINO_AVR_ATtiny1606) || \
     defined(ARDUINO_AVR_ATtiny3216)
-#define ALL_GPIO                                                               \
-  0x01FFFFUL // this is chip dependant, for 816 we have 17 GPIO avail
+#define ALL_GPIO \
+  0x01FFFFUL                        // this is chip dependant, for 816 we have 17 GPIO avail
 #define ALL_ADC 0b11100001100111111 // pins that have ADC capability
 #ifdef CONFIG_PWM_16BIT
-#define ALL_PWM ((1UL << 4) | (1UL << 5) | (1UL << 6))  // alternate TCA0 WOx
+#define ALL_PWM ((1UL << 4) | (1UL << 5) | (1UL << 6)) // alternate TCA0 WOx
 #else
-#define ALL_PWM                                                                \
-  ((1UL << 0) | (1UL << 1) | (1UL << 7) | (1UL << 8) | (1UL << 9) |            \
+#define ALL_PWM                                                     \
+  ((1UL << 0) | (1UL << 1) | (1UL << 7) | (1UL << 8) | (1UL << 9) | \
    (1UL << 10) | (1UL << 11) | (1UL << 16))
 #endif
 #define PWM_WO_OFFSET (4)
 #endif
 
-#define INVALID_GPIO ((1UL << SDA) | (1UL << SCL) | \
-                      ((uint32_t)CONFIG_UART_DEBUG << UART_DEBUG_RXD) | \
-                      ((uint32_t)CONFIG_UART_DEBUG << UART_DEBUG_TXD)   |   \
+#define INVALID_GPIO ((1UL << SDA) | (1UL << SCL) |                          \
+                      ((uint32_t)CONFIG_UART_DEBUG << UART_DEBUG_RXD) |      \
+                      ((uint32_t)CONFIG_UART_DEBUG << UART_DEBUG_TXD) |      \
                       ((uint32_t)CONFIG_INTERRUPT << CONFIG_INTERRUPT_PIN) | \
-                      ((uint32_t)CONFIG_ADDR_0 << CONFIG_ADDR_0_PIN) | \
-                      ((uint32_t)CONFIG_ADDR_1 << CONFIG_ADDR_1_PIN) | \
-                      ((uint32_t)CONFIG_ADDR_2 << CONFIG_ADDR_2_PIN) | \
-                      ((uint32_t)CONFIG_ADDR_3 << CONFIG_ADDR_3_PIN) | \
+                      ((uint32_t)CONFIG_ADDR_0 << CONFIG_ADDR_0_PIN) |       \
+                      ((uint32_t)CONFIG_ADDR_1 << CONFIG_ADDR_1_PIN) |       \
+                      ((uint32_t)CONFIG_ADDR_2 << CONFIG_ADDR_2_PIN) |       \
+                      ((uint32_t)CONFIG_ADDR_3 << CONFIG_ADDR_3_PIN) |       \
                       0)
 
 #define VALID_GPIO (ALL_GPIO & ~INVALID_GPIO)
@@ -202,7 +202,6 @@ void setChannelCount(uint8_t c)
 {
   gChannelCount = c;
 }
-
 
 #if CONFIG_FHT && defined(MEGATINYCORE)
 volatile uint8_t i2c_buffer[3]; // Minimal I2C buffer w/FHT because RAM
@@ -243,10 +242,10 @@ volatile uint8_t g_uart_tx_len = 0;
 #define ENCODER_FLAG_BACK_EDGE1 0x02
 #define ENCODER_FLAG_FORW_EDGE2 0x04
 #define ENCODER_FLAG_BACK_EDGE2 0x08
-#define ENCODER_FLAG_MIDSTEP    0x10
+#define ENCODER_FLAG_MIDSTEP 0x10
 
-#define BIT_IS_SET(x,b) (((x)&(1UL << b)) != 0)
-#define BIT_IS_CLEAR(x,b) (((x)&(1UL << b)) == 0)
+#define BIT_IS_SET(x, b) (((x) & (1UL << b)) != 0)
+#define BIT_IS_CLEAR(x, b) (((x) & (1UL << b)) == 0)
 
 #define ENCODER0_INPUT_MASK ((1UL << CONFIG_ENCODER0_A_PIN) | (1UL << CONFIG_ENCODER0_B_PIN))
 
@@ -283,21 +282,24 @@ volatile uint8_t g_enc_flags[CONFIG_NUM_ENCODERS];
 // global address
 uint8_t _i2c_addr = CONFIG_I2C_PERIPH_ADDR;
 
-void Adafruit_seesawPeripheral_setDatecode(void) {
+void Adafruit_seesawPeripheral_setDatecode(void)
+{
 
   char buf[12];
   char *bufp = buf;
   int month = 0, day = 0, year = 2000;
   static const char month_names[] = "JanFebMarAprMayJunJulAugSepOctNovDec";
 
-  strncpy(buf, __DATE__, 11);
-  buf[11] = 0;
+  memset((void *)buf, 0, 12);
 
-  bufp[3] = 0;
-  month = (strstr(month_names, bufp)-month_names)/3 + 1;
+  strncpy(buf, __DATE__, 11);
+  // buf[11] = 0;
+
+  // bufp[3] = 0;
+  month = (strstr(month_names, bufp) - month_names) / 3 + 1;
 
   bufp += 4;
-  bufp[2] = 0;
+  // bufp[2] = 0;
   day = atoi(bufp);
 
   bufp += 3;
@@ -312,18 +314,20 @@ void Adafruit_seesawPeripheral_setDatecode(void) {
   DATE_CODE |= (year - 2000) & 0x3F; // bottom 7 bits are year
 }
 
-
-void Adafruit_seesawPeripheral_setIRQ(void) {
+void Adafruit_seesawPeripheral_setIRQ(void)
+{
   digitalWrite(CONFIG_INTERRUPT_PIN, LOW);
   pinMode(CONFIG_INTERRUPT_PIN, OUTPUT);
 }
 
-void Adafruit_seesawPeripheral_clearIRQ(void) {
+void Adafruit_seesawPeripheral_clearIRQ(void)
+{
   // time to turn off the IRQ pin?
   pinMode(CONFIG_INTERRUPT_PIN, INPUT_PULLUP); // open-drainish
 }
 
-bool Adafruit_seesawPeripheral_begin(void) {
+bool Adafruit_seesawPeripheral_begin(void)
+{
   SEESAW_DEBUG(F("All GPIO: "));
   SEESAW_DEBUGLN(ALL_GPIO, HEX);
   SEESAW_DEBUG(F("Invalid: "));
@@ -342,7 +346,8 @@ bool Adafruit_seesawPeripheral_begin(void) {
   return true;
 }
 
-void Adafruit_seesawPeripheral_reset(void) {
+void Adafruit_seesawPeripheral_reset(void)
+{
   Adafruit_seesawPeripheral_setDatecode();
 
   cli();
@@ -357,20 +362,32 @@ void Adafruit_seesawPeripheral_reset(void) {
   _i2c_addr = EEPROM.read(EEPROM_I2C_ADDR);
   SEESAW_DEBUG(F("EEaddr: 0x"));
   SEESAW_DEBUGLN(_i2c_addr, HEX);
-  if (_i2c_addr > 0x7F) {
+  if (_i2c_addr > 0x7F)
+  {
     _i2c_addr = CONFIG_I2C_PERIPH_ADDR;
   }
+#endif
+
+#if AQUARIUS
+  pinMode(ADDR_PIN_0, INPUT_PULLUP);
+  pinMode(ADDR_PIN_1, INPUT_PULLUP);
+
+  uint8_t p = digitalReadFast( ADDR_PIN_0 );
+  p |= (digitalReadFast(ADDR_PIN_1) << 1 );
+  p = (~p & 0x03);
+  _i2c_addr += p
+
 #endif
 
 #if CONFIG_ADDR_0
   pinMode(CONFIG_ADDR_0_PIN, INPUT_PULLUP);
   if (digitalRead(CONFIG_ADDR_0_PIN) == CONFIG_ADDR_INVERTED)
-    _i2c_addr += 1;
+    _i2c_addr += 16; // jump address space so we don't screw other modules
 #endif
 #if CONFIG_ADDR_1
   pinMode(CONFIG_ADDR_1_PIN, INPUT_PULLUP);
   if (digitalRead(CONFIG_ADDR_1_PIN) == CONFIG_ADDR_INVERTED)
-    _i2c_addr += 2;
+    _i2c_addr += 32;
 #endif
 #if CONFIG_ADDR_2
   pinMode(CONFIG_ADDR_2_PIN, INPUT_PULLUP);
@@ -387,8 +404,10 @@ void Adafruit_seesawPeripheral_reset(void) {
   SEESAW_DEBUGLN(_i2c_addr, HEX);
 
   uint32_t pins = VALID_GPIO;
-  for (uint8_t pin = 0; pin < 32; pin++) {
-    if ((pins >> pin) & 0x1) {
+  for (uint8_t pin = 0; pin < 32; pin++)
+  {
+    if ((pins >> pin) & 0x1)
+    {
       pinMode(pin, INPUT);
       digitalWrite(pin, 0);
 #if USE_PINCHANGE_INTERRUPT
@@ -410,14 +429,15 @@ void Adafruit_seesawPeripheral_reset(void) {
   g_pwmStatus = 0;
   // TCA0 is used for 16 bit PWM support
   takeOverTCA0();
-  PORTMUX.CTRLC |= 0b111;    // Alternate WOx output pin locations
-  TCA0.SINGLE.PER = 0xFFFF;  // Set TOP to MAX
-  TCA0.SINGLE.CTRLB = 0x03;  // Single-slope PWM, WG outputs off
-  TCA0.SINGLE.CTRLD = 0x00;  // Disable Split Mode
-  TCA0.SINGLE.CTRLA = 0x01;  // Enable TCA0 peripheral
+  PORTMUX.CTRLC |= 0b111;   // Alternate WOx output pin locations
+  TCA0.SINGLE.PER = 0xFFFF; // Set TOP to MAX
+  TCA0.SINGLE.CTRLB = 0x03; // Single-slope PWM, WG outputs off
+  TCA0.SINGLE.CTRLD = 0x00; // Disable Split Mode
+  TCA0.SINGLE.CTRLA = 0x01; // Enable TCA0 peripheral
 #endif
 #if CONFIG_NEOPIXEL
-  for (uint16_t i = 0; i < CONFIG_NEOPIXEL_BUF_MAX; i++) {
+  for (uint16_t i = 0; i < CONFIG_NEOPIXEL_BUF_MAX; i++)
+  {
     g_neopixel_buf[i] = 0;
   }
   g_neopixel_bufsize = 0;
@@ -448,7 +468,8 @@ void Adafruit_seesawPeripheral_reset(void) {
   pinMode(CONFIG_ENCODER3_B_PIN, INPUT_PULLUP);
 #endif
 
-  for (uint8_t encodernum=0; encodernum<CONFIG_NUM_ENCODERS; encodernum++) {
+  for (uint8_t encodernum = 0; encodernum < CONFIG_NUM_ENCODERS; encodernum++)
+  {
     g_enc_value[encodernum] = 0;
     g_enc_delta[encodernum] = 0;
     g_enc_prev_pos[encodernum] = 0;
@@ -488,9 +509,9 @@ void Adafruit_seesawPeripheral_reset(void) {
   fht_counter = 0; // For filling FHT input buffer
 
   ADC0.CTRLA = ADC_FREERUN_bm | ADC_ENABLE_bm; // 10-bit, free-run, enable ADC
-  ADC0.CTRLB = ADC_SAMPNUM_ACC4_gc;   // Accumulate 4X (0-4092 (sic.) result)
-  ADC0.CTRLC = ADC_SAMPCAP_bm |       // Reduced capacitance for >1V AREF
-               ADC_REFSEL_VDDREF_gc | // VDD as AREF
+  ADC0.CTRLB = ADC_SAMPNUM_ACC4_gc;            // Accumulate 4X (0-4092 (sic.) result)
+  ADC0.CTRLC = ADC_SAMPCAP_bm |                // Reduced capacitance for >1V AREF
+               ADC_REFSEL_VDDREF_gc |          // VDD as AREF
 #if F_CPU > 12000000
                ADC_PRESC_DIV16_gc; // 16:1 timer prescale (20->1.25 MHz)
 #else
@@ -498,7 +519,7 @@ void Adafruit_seesawPeripheral_reset(void) {
 #endif
   ADC0.CTRLD = 0; // No init or sample delay
   ADC0.MUXPOS = digitalPinToAnalogInput(FHT_DEFAULT_PIN);
-  ADC0.SAMPCTRL = 12; // Add to usu. 13 ADC cycles for 25 cycles/sample
+  ADC0.SAMPCTRL = 12;            // Add to usu. 13 ADC cycles for 25 cycles/sample
   ADC0.INTCTRL |= ADC_RESRDY_bm; // Enable result-ready interrupt
   ADC0.COMMAND |= ADC_STCONV_bm; // Start free-run conversion
 #endif
@@ -512,23 +533,27 @@ void Adafruit_seesawPeripheral_reset(void) {
 }
 
 #if CONFIG_FHT && defined(MEGATINYCORE)
-ISR(ADC0_RESRDY_vect) { // ADC conversion complete
+ISR(ADC0_RESRDY_vect)
+{ // ADC conversion complete
   // Convert 12-bit ADC reading to signed value (+/-2K) and scale to 16-bit
   // space (scaling up isn't strictly required but FHT results look cleaner).
   // 2046 (not 2048) is intentional, see ADC notes above, don't "fix."
   fht_input[fht_counter] = (ADC0.RES - 2046) * 4;
   // Compare-before-increment allows a uint8_t counter, RAM's that tight.
-  if (fht_counter == (FHT_N - 1)) { // FHT input buffer full?
+  if (fht_counter == (FHT_N - 1))
+  {                                 // FHT input buffer full?
     ADC0.INTCTRL &= ~ADC_RESRDY_bm; // Disable result-ready interrupt
-  } else {
+  }
+  else
+  {
     fht_counter++;
   }
   // Interrupt flag is cleared automatically when reading ADC0.RES
 }
 #endif
 
-
-uint32_t Adafruit_seesawPeripheral_readBulk(uint32_t validpins = VALID_GPIO) {
+uint32_t Adafruit_seesawPeripheral_readBulk(uint32_t validpins = VALID_GPIO)
+{
   uint32_t temp = 0;
 
   // read all ports
@@ -537,24 +562,28 @@ uint32_t Adafruit_seesawPeripheral_readBulk(uint32_t validpins = VALID_GPIO) {
   port_reads[1] = VPORTB.IN;
   port_reads[2] = VPORTC.IN;
 
-  //pinMode(1, OUTPUT);
-  //digitalWriteFast(1, HIGH);
-  for (uint8_t pin = 0; pin < 32; pin++) {
+  // pinMode(1, OUTPUT);
+  // digitalWriteFast(1, HIGH);
+  for (uint8_t pin = 0; pin < 32; pin++)
+  {
     temp >>= 1;
-    if (validpins & 0x1) {
+    if (validpins & 0x1)
+    {
       uint8_t mask = 1 << digital_pin_to_bit_position[pin];
       uint8_t port = digital_pin_to_port[pin];
-      if (port_reads[port] & mask) {
+      if (port_reads[port] & mask)
+      {
         temp |= 0x80000000UL;
       }
     }
     validpins >>= 1;
   }
-  //digitalWriteFast(1, LOW);
+  // digitalWriteFast(1, LOW);
   return temp;
 }
 
-void Adafruit_seesawPeripheral_write32(uint32_t value) {
+void Adafruit_seesawPeripheral_write32(uint32_t value)
+{
   Wire.write(value >> 24);
   Wire.write(value >> 16);
   Wire.write(value >> 8);

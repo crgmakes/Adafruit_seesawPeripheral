@@ -28,16 +28,18 @@ void receiveEvent(int howMany)
   SEESAW_DEBUG(F("Received "));
   SEESAW_DEBUG(howMany);
   SEESAW_DEBUG(F(" bytes:"));
-  for (uint8_t i = howMany; i < sizeof(i2c_buffer); i++)
-  {
-    i2c_buffer[i] = 0;
-  }
 
+  // return if buffer too small
   if ((uint32_t)howMany > sizeof(i2c_buffer))
   {
     SEESAW_DEBUGLN();
     return;
   }
+
+  // clear buffer
+  memset((void*)i2c_buffer, 0, sizeof(i2c_buffer));
+
+  // Read the data
   for (uint8_t i = 0; i < howMany; i++)
   {
     i2c_buffer[i] = Wire.read();
@@ -74,11 +76,20 @@ void receiveEvent(int howMany)
     case SEESAW_GPIO_BULK:
       if (howMany == 2)
       {
+        // This is a little awkward, but works -- this "receive" is the command to 
+        // return the values of the GPIO. However, this is the write phase of the 
+        // command (to the slave), not the actual read phase (where the master expects
+        // the values to be returned). Generally one would just put the read of the ports in the
+        // code segment where the writting of the values happens. I may move it
+        // in the future to be less confusing.
+
         // we're about to request the data next so we'll do the read now
         g_bufferedBulkGPIORead = Adafruit_seesawPeripheral_readBulk(VALID_GPIO);
       }
       else
       {
+        // We have more than 2 bytes received so act on the command data
+
         // pinMode(1, OUTPUT);
         // digitalWriteFast(1, HIGH);
         //  otherwise, we are writing bulk data!
